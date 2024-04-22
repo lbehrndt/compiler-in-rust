@@ -1,5 +1,3 @@
-use std::{ops::Index, thread::sleep};
-
 /// Represents the kind of token in the lexer.
 pub enum TokenKind {
     /// A numeric token.
@@ -52,12 +50,17 @@ impl<'a> SyntaxToken<'a> {
         }
     }
 
+    /// Gets the kind of token.
     pub fn kind(&self) -> &TokenKind {
         &self._kind
     }
+
+    /// Gets the position of the token in the source file.
     pub fn position(&self) -> usize {
         self._position
     }
+
+    /// Gets the text representation of the token.
     pub fn text(&self) -> &str {
         self._text
     }
@@ -80,6 +83,7 @@ impl<'a> Lexer<'a> {
         }
     }
 
+    /// Gets the current character at the lexer's position.
     fn current(&self) -> char {
         if self._position >= self._text.len() {
             return '\0';
@@ -87,10 +91,12 @@ impl<'a> Lexer<'a> {
         return self._text.chars().nth(self._position).unwrap();
     }
 
+    /// Moves the lexer to the next position and returns the new position.
     fn next(&mut self) -> usize {
         self._position += 1;
         self._position
     }
 
+    /// Lexes the next token from the input text.
     pub fn next_token(&mut self) {}
 }
